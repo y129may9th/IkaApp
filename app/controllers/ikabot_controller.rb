@@ -11,13 +11,18 @@ class IkabotController < ApplicationController
     }
   end
 
+  #validation別ファイルで実行できる？
   def callback
     body = request.body.read
-
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
+
+  # #データ取得と呼び出し
+  # def get_api
+  # end
+
 
     events = client.parse_events_from(body)
 
@@ -26,9 +31,17 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
+          p "ここから#{params}ここまで"
           message = {
             type: 'text',
-            text: event.message['text']
+            text: event.message['text'] #送信したいmessage
+          }
+          client.reply_message(event['replyToken'], message)
+        when Line::Bot::Event::MessageType::Sticker
+          message = {
+            type: 'sticker',
+            packageId: event.message['packageId'],
+            stickerId: event.message['stickerId']
           }
           client.reply_message(event['replyToken'], message)
         end
