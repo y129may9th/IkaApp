@@ -38,5 +38,4 @@ class IkabotController < ApplicationController
     head :ok
   end
 end
-end
 
