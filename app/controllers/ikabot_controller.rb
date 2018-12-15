@@ -29,21 +29,21 @@ class IkabotController < ApplicationController
           if text_params == "ナワバリマッチ" then
           message = {
             type: 'text',
-            text: "${event.message['text']}いいね！" 
+            text: "#{event.message['text']}いいね！" 
           }
           client.reply_message(event['replyToken'], message)
 
           elsif text_params  == "ガチマッチ" then
             message = {
               type: 'text',
-              text: "${event.message['text']}はガチエリア、ガチヤグラ、ガチホコバトル、ガチアサリだね"
+              text: "#{event.message['text']}はガチエリア、ガチヤグラ、ガチホコバトル、ガチアサリだね"
             }
           client.reply_message(event['replyToken'], message)
 
           elsif text_params  == "サーモンラン" then
             message = {
               type: 'text',
-              text: "${event.message['text']}はバイト"
+              text: "#{event.message['text']}はバイト"
             }
             client.reply_message(event['replyToken'], message)
 
