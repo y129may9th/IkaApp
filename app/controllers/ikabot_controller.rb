@@ -45,6 +45,7 @@ class IkabotController < ApplicationController
               type: 'text',
               text: "${event.message['text']}はバイト"
             }
+            client.reply_message(event['replyToken'], message)
 
           else 
             message = {
@@ -54,13 +55,6 @@ class IkabotController < ApplicationController
           client.reply_message(event['replyToken'], message)
           end
 
-        when Line::Bot::Event::MessageType::Sticker
-          message = {
-            type: 'sticker',
-            packageId: event.message['packageId'],
-            stickerId: event.message['stickerId']
-          }
-          client.reply_message(event['replyToken'], message)
         when Line::Bot::Event::MessageType::Sticker
           message = {
             type: 'sticker',
