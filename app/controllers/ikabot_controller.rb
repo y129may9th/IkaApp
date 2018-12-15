@@ -36,7 +36,7 @@ class IkabotController < ApplicationController
           elsif text_params  == "ガチマッチ" then
             message = {
               type: 'text',
-              text: "#{event.message['text']}はガチエリア、ガチヤグラ、ガチホコバトル、ガチアサリだね"
+              text: "#{event.message['text']}は\nガチエリア、\nガチヤグラ、\nガチホコバトル、\nガチアサリだね"
             }
           client.reply_message(event['replyToken'], message)
 
@@ -50,7 +50,7 @@ class IkabotController < ApplicationController
           else 
             message = {
               type: 'text',
-              text: event.message['text']
+              text: "ナワバリマッチ\nガチマッチ\nサーモンラン"
             }
           client.reply_message(event['replyToken'], message)
           end
