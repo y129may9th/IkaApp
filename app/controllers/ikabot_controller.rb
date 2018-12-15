@@ -11,7 +11,6 @@ class IkabotController < ApplicationController
     }
   end
 
-  #validation別ファイルで実行できる？
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -19,24 +18,42 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-  # #データ取得と呼び出し
-  # def get_api
-  # end
-
+    text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
     events = client.parse_events_from(body)
-
     events.each { |event|
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          p "ここから#{params}ここまで"
+          if text_params == "ナワバリマッチ" then
           message = {
             type: 'text',
-            text: event.message['text'] #送信したいmessage
+            text: "${event.message['text']}いいね！" 
           }
           client.reply_message(event['replyToken'], message)
+
+          elsif text_params  == "ガチマッチ" then
+            message = {
+              type: 'text',
+              text: "${event.message['text']}はガチエリア、ガチヤグラ、ガチホコバトル、ガチアサリだね"
+            }
+          client.reply_message(event['replyToken'], message)
+
+          elsif text_params  == "サーモンラン" then
+            message = {
+              type: 'text',
+              text: "${event.message['text']}はバイト"
+            }
+
+          else 
+            message = {
+              type: 'text'
+              text: event.message['text']
+            }
+          client.reply_message(event['replyToken'], message)
+          end
+
         when Line::Bot::Event::MessageType::Sticker
           message = {
             type: 'sticker',
