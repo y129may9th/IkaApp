@@ -61,6 +61,13 @@ class IkabotController < ApplicationController
             stickerId: event.message['stickerId']
           }
           client.reply_message(event['replyToken'], message)
+        when Line::Bot::Event::MessageType::Sticker
+          message = {
+            type: 'sticker',
+            packageId: event.message['packageId'],
+            stickerId: event.message['stickerId']
+          }
+          client.reply_message(event['replyToken'], message)
         end
       end
     }
