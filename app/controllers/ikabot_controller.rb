@@ -22,37 +22,31 @@ class IkabotController < ApplicationController
 
     events = client.parse_events_from(body)
     events.each { |event|
+      if event.message['text'].present?
+        place = event.message['text']
+        result = https://spla2.yuu26.com/'#{place}'/now  
+      else
+        result = https://spla2.yuu26.com/regular/now #, https://spla2.yuu26.com/gachi/now , https://spla2.yuu26.com/league/now 
+      end
+
+      rule_name = rule #ルール名
+      map_name = maps #店の名前
+      open_time = start #空いている時間
+      close = end #定休日
+
+      response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
+
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          if text_params == "ナワバリマッチ" then
           message = {
-            type: 'text',
-            text: "#{event.message['text']}いいね！" 
-          }
-          client.reply_message(event['replyToken'], message)
+             type: 'text',
+             text: response
+           }
+           client.reply_message(event['replyToken'], message)
+         end
 
-          elsif text_params  == "ガチマッチ" then
-            message = {
-              type: 'text',
-              text: "#{event.message['text']}は\nガチエリア、\nガチヤグラ、\nガチホコバトル、\nガチアサリだね"
-            }
-          client.reply_message(event['replyToken'], message)
-
-          elsif text_params  == "サーモンラン" then
-            message = {
-              type: 'text',
-              text: "#{event.message['text']}はバイト"
-            }
-            client.reply_message(event['replyToken'], message)
-
-          else 
-            message = {
-              type: 'text',
-              text: "ナワバリマッチ\nガチマッチ\nサーモンラン"
-            }
-          client.reply_message(event['replyToken'], message)
           end
 
         when Line::Bot::Event::MessageType::Sticker
