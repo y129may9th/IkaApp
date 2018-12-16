@@ -29,12 +29,12 @@ class IkabotController < ApplicationController
         result = https://spla2.yuu26.com/regular/now #, https://spla2.yuu26.com/gachi/now , https://spla2.yuu26.com/league/now 
       end
 
-      rule_name = rule #ルール名
-      map_name = maps #店の名前
-      open_time = start #空いている時間
-      close = end #定休日
+      # rule_name = rule #ルール名
+      # map_name = maps #店の名前
+      # open_time = start #空いている時間
+      # close = end #おしまい
 
-      response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
+      # response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
 
       case event
       when Line::Bot::Event::Message
@@ -42,12 +42,9 @@ class IkabotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
              type: 'text',
-             text: response
+             text: result
            }
            client.reply_message(event['replyToken'], message)
-         end
-
-          end
 
         when Line::Bot::Event::MessageType::Sticker
           message = {
