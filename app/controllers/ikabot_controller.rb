@@ -23,9 +23,9 @@ class IkabotController < ApplicationController
     events.each { |event|
       if event.message['text'] =! nil
         place = event.message['text']
-        result = `curl -X POST https://spla2.yuu26.com/#{place}/now `
+        result = curl -X POST https://spla2.yuu26.com/#{place}/now
       else
-        result = `curl -X POST https://spla2.yuu26.com/regular/now `
+        result = curl -X POST https://spla2.yuu26.com/regular/now
       end
       logger.info("@@@@@@@")
       
