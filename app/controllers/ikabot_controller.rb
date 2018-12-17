@@ -1,6 +1,7 @@
 class IkabotController < ApplicationController
     require 'line/bot'
-    
+    require 'json'
+
     # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
@@ -27,10 +28,11 @@ class IkabotController < ApplicationController
       # else
       #   result = `curl -X POST https://spla2.yuu26.com/regular/now `
       # end
-      # logger.info("@@@@@@@")
+
+      spla2 = `curl -X POST https://spla2.yuu26.com/regular/now `
       
-      # hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
-      # info = hash_result["result"][0]
+      hash_result = JSON.parse(spla2) #レスポンスが文字列なのでhashにパースする
+      info = hash["result"]
 
       # rule_name = info["rule_ex"]["name"]
       # stage1 = info["maps_ex"][0]["name"]
@@ -39,7 +41,6 @@ class IkabotController < ApplicationController
       # close = info["end"] 
 
       # response = "【バトル】" + rule_name + "\n" + "【マップ】" + stage1 + stage2 + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
-      result = `curl -X POST https://spla2.yuu26.com/regular/now `
       case event
       when Line::Bot::Event::Message
         case event.type
