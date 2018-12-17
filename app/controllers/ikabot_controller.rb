@@ -31,10 +31,10 @@ class IkabotController < ApplicationController
       hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
       info = hash_result["result"] 
 
-      rule_name = shops["rule"] #ルール名
-      map_name = shops["maps"] #店の名前
-      open_time = shops["start"] #空いている時間
-      close = shops["end"] #おしまい
+      rule_name = info["rule"] #ルール名
+      map_name = info["maps"] #店の名前
+      open_time = info["start"] #空いている時間
+      close = info["end"] #おしまい
 
       response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
 
