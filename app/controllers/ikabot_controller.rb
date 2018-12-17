@@ -47,7 +47,7 @@ class IkabotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
              type: 'text',
-             text: result
+             text: info
            }
            client.reply_message(event['replyToken'], message)
 
