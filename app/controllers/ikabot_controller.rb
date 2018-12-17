@@ -31,7 +31,7 @@ class IkabotController < ApplicationController
 
       spla2 = `curl -X POST https://spla2.yuu26.com/regular/now `
       
-      hash_result = JSON.parse(spla2) #レスポンスが文字列なのでhashにパースする
+      hash_result = JSON.parse spla2#レスポンスが文字列なのでhashにパースする
       info = hash["result"]
 
       # rule_name = info["rule_ex"]["name"]
