@@ -19,26 +19,27 @@ class IkabotController < ApplicationController
     end
 
     events = client.parse_events_from(body)
+    result = `curl -X POST https://spla2.yuu26.com/regular/now `
 
-    events.each { |event|
-      if event.message['text'] =! nil
-        place = event.message['text']
-        result = curl -X POST https://spla2.yuu26.com/#{place}/now
-      else
-        result = curl -X POST https://spla2.yuu26.com/regular/now
-      end
-      logger.info("@@@@@@@")
+    # events.each { |event|
+    #   if event.message['text'] =! nil
+    #     place = event.message['text']
+    #     result = `curl -X POST https://spla2.yuu26.com/#{place}/now `
+    #   else
+    #     result = `curl -X POST https://spla2.yuu26.com/regular/now `
+    #   end
+    #   logger.info("@@@@@@@")
       
-      # hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
-      # info = hash_result["result"][0]
+    #   hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
+    #   info = hash_result["result"][0]
 
-      # rule_name = info["rule_ex"]["name"]
-      # stage1 = info["maps_ex"][0]["name"]
-      # stage2 = info["maps_ex"][1]["name"]
-      # open_time = info["start"] 
-      # close = info["end"] 
+    #   rule_name = info["rule_ex"]["name"]
+    #   stage1 = info["maps_ex"][0]["name"]
+    #   stage2 = info["maps_ex"][1]["name"]
+    #   open_time = info["start"] 
+    #   close = info["end"] 
 
-      # response = "【バトル】" + rule_name + "\n" + "【マップ】" + stage1 + stage2 + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
+    #   response = "【バトル】" + rule_name + "\n" + "【マップ】" + stage1 + stage2 + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
 
       case event
       when Line::Bot::Event::Message
