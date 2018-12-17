@@ -18,7 +18,7 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
+    #text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
     events = client.parse_events_from(body)
     events.each { |event|
