@@ -21,7 +21,7 @@ class IkabotController < ApplicationController
     events = client.parse_events_from(body)
 
     events.each { |event|
-      if event.message['text'].present?
+      if event.message['text'] =! nil
         place = event.message['text']
         result = `curl -X POST https://spla2.yuu26.com/'#{place}'/now `
       else
@@ -31,10 +31,10 @@ class IkabotController < ApplicationController
       hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
       info = hash_result["result"] 
 
-      rule_name = info["rule"] #ルール名
-      map_name = info["maps"] #店の名前
-      open_time = info["start"] #空いている時間
-      close = info["end"] #おしまい
+      rule_name = info["rule"] 
+      map_name = info["maps"] 
+      open_time = info["start"] 
+      close = info["end"] 
 
       response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
 
