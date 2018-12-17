@@ -29,14 +29,15 @@ class IkabotController < ApplicationController
       end
 
       hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
-      info = hash_result["result"] 
+      info = hash_result["result"][0]
 
-      rule_name = info["rule"] 
-      map_name = info["maps"] 
+      rule_name = info["rule_ex"]["name"]
+      stage1 = info["maps_ex"][0]["name"]
+      stage2 = info["maps_ex"][1]["name"]
       open_time = info["start"] 
       close = info["end"] 
 
-      response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
+      response = "【バトル】" + rule_name + "\n" + "【マップ】" + stage1 + stage2 + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
 
       case event
       when Line::Bot::Event::Message
