@@ -1,6 +1,7 @@
 class IkabotController < ApplicationController
     require 'line/bot'
     require 'json'
+    
 
     # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
@@ -29,10 +30,10 @@ class IkabotController < ApplicationController
       #   result = `curl -X POST https://spla2.yuu26.com/regular/now `
       # end
 
-      spla2 = `curl -X POST https://spla2.yuu26.com/regular/now `
+      spla2 = `https://spla2.yuu26.com/regular/now `
       
       hash_result = JSON.parse spla2 #レスポンスが文字列なのでhashにパースする
-      info = hash["result"][0]
+      info = hash["result"]
 
       # rule_name = info["rule_ex"]["name"]
       # stage1 = info["maps_ex"][0]["name"]
