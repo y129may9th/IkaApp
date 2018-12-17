@@ -18,23 +18,25 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    #text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
-
     events = client.parse_events_from(body)
+
     events.each { |event|
       if event.message['text'].present?
         place = event.message['text']
-        result = https://spla2.yuu26.com/'#{place}'/now  
+        result = `curl -X POST https://spla2.yuu26.com/'#{place}'/now `
       else
-        result = https://spla2.yuu26.com/regular/now #, https://spla2.yuu26.com/gachi/now , https://spla2.yuu26.com/league/now 
+        result = `curl -X POST https://spla2.yuu26.com/regular/now `
       end
 
-      # rule_name = rule #ルール名
-      # map_name = maps #店の名前
-      # open_time = start #空いている時間
-      # close = end #おしまい
+      hash_result = JSON.parse result #レスポンスが文字列なのでhashにパースする
+      info = hash_result["result"] 
 
-      # response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
+      rule_name = shops["rule"] #ルール名
+      map_name = shops["maps"] #店の名前
+      open_time = shops["start"] #空いている時間
+      close = shops["end"] #おしまい
+
+      response = "【バトル】" + rule_name + "\n" + "【マップ】" + map_name + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
 
       case event
       when Line::Bot::Event::Message
