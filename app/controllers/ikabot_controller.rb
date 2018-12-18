@@ -24,8 +24,12 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
     
+    events = client.parse_events_from(body)
+    events.each { |event|
+
     if text_params  == "ナワバリ" then
       rule = "regular"
+      logger.info("@@@@")
     else text_params  == "ガチマッチ"
       rule = "gachi"
     end
@@ -34,18 +38,16 @@ class IkabotController < ApplicationController
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
-      
-    result = json["result"][0]
-    rule_name = result["rule"]
-    map1 = result["maps"][0]
-    map2 = result["maps"][1]
-    image1 = result["maps_ex"][0]["image"]
-    image2 = result["maps_ex"][1]["image"]
+    response = json
+    # result = json["result"][0]
+    # rule_name = result["rule"]
+    # map1 = result["maps"][0]
+    # map2 = result["maps"][1]
+    # image1 = result["maps_ex"][0]["image"]
+    # image2 = result["maps_ex"][1]["image"]
 
-    response = "【バトル】" + "\n" + rule_name + "\n" + "【マップ】" + "\n" + map1 + ":" +image1 + "\n" + map2 + ":" + image2 + "\n" 
+    # response = "【バトル】" + "\n" + rule_name + "\n" + "【マップ】" + "\n" + map1 + ":" +image1 + "\n" + map2 + ":" + image2 + "\n" 
 
-    events = client.parse_events_from(body)
-    events.each { |event|
       case event
       when Line::Bot::Event::Message
         case event.type
