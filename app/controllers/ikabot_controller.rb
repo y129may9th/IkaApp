@@ -54,9 +54,9 @@ class IkabotController < ApplicationController
           message = {
              type: 'text',
              text: response,
-             type: 'image',
-             originalContentUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png', 
-             previewImageUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png'
+            #  type: 'image',
+            #  originalContentUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png', 
+            #  previewImageUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png'
            }
            client.reply_message(event['replyToken'], message)
 
