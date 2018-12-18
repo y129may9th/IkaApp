@@ -1,5 +1,6 @@
 class IkabotController < ApplicationController
     require 'line/bot'
+    require 'net/http'
     require 'json'
     
 
@@ -20,35 +21,30 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    events = client.parse_events_from(body)
-
-    events.each { |event|
-      # if event.message['text'] =! nil
-      #   place = event.message['text']
-      #   result = `curl -X POST https://spla2.yuu26.com/#{place}/now `
-      # else
-      #   result = `curl -X POST https://spla2.yuu26.com/regular/now `
-      # end
-
-      spla2 = `https://spla2.yuu26.com/regular/now`
+    spla2 = `https://spla2.yuu26.com/regular/now`
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
       
-      hash_result = JSON.parse(spla2) #レスポンスが文字列なのでhashにパースする
-      info = hash["result"][0]
+    result = json["result"][0]
+    rule = result["rule"]
+    map1 = result["maps"][0]
+    map2 = result["maps"][1]
+    image1 = result["map_ex"][0]["image"]
+    image2 = result["map_ex"][1]["image"]
 
-      # rule_name = info["rule_ex"]["name"]
-      # stage1 = info["maps_ex"][0]["name"]
-      # stage2 = info["maps_ex"][1]["name"]
-      # open_time = info["start"] 
-      # close = info["end"] 
+    response = "【バトル】" + rule + "\n" + "【マップ】" + "\n" + map1 + ":" +image1 + "\n" + map2 + ":" + image2 + "\n" 
 
-      # response = "【バトル】" + rule_name + "\n" + "【マップ】" + stage1 + stage2 + "\n" + "【OPEN時間】" + open_time + "\n" + close + "\n" 
+    events = client.parse_events_from(body)
+    events.each { |event|
+
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           message = {
              type: 'text',
-             text: info
+             text: response
            }
            client.reply_message(event['replyToken'], message)
 
