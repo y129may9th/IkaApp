@@ -23,15 +23,15 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    if text_params == "ナワバリ"
+    if text_params == "ナワバリ" || "レギュラー" || "レギュラーマッチ" then
       rule = "regular"
-      logger.info("@@@@@@")
-    else
+    elsif text_params == "ガチマ" || "ガチマッチ" then
+      rule = "gachi"
+    elsif text_params == "サーモンラン" || "バイト" then
       rule = "gachi"
     end
-      
+
     spla2 = "https://spla2.yuu26.com/#{rule}/now"
-    logger.info("#####")
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
@@ -43,10 +43,12 @@ class IkabotController < ApplicationController
     image1 = result["maps_ex"][0]["image"]
     image2 = result["maps_ex"][1]["image"]
 
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + ":" +image1 + "\n" + map2 + ":" + image2 + "\n" 
+    response = "【バトル】" + "\n" + rule + "\n" 
+                + "【マップ】" + "\n" + map1 + "\n" +image1 + "\n" 
+                                       + map2 + "\n" + image2 + "\n" 
+
 
     events = client.parse_events_from(body)
-    logger.info("!!!!!")
     events.each { |event|
       case event
       when Line::Bot::Event::Message
