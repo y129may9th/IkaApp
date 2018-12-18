@@ -51,14 +51,25 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          message = {
-             type: 'text',
-             text: response,
-            #  type: 'image',
-            #  originalContentUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png', 
-            #  previewImageUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png'
-           }
-           client.reply_message(event['replyToken'], message)
+          messages = [
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: image1,
+              previewImageUrl: image1
+            }
+          ]
+          # message = {
+          #    type: 'text',
+          #    text: response,
+          #    type: 'image',
+          #    originalContentUrl: image1,
+          #    previewImageUrl: image1
+          #  }
+           client.reply_message(event['replyToken'], messages)
 
         when Line::Bot::Event::MessageType::Sticker
           message = {
