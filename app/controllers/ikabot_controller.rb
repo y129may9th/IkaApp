@@ -21,22 +21,22 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    events = client.parse_events_from(body)
-    events.each { |event|
+    text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    if event.message['text'] == "ナワバリ"
+    if text_params == "ナワバリ"
       rule = "regular"
     else
       rule = "gachi"
     end
       
     spla2 = "https://spla2.yuu26.com/#{rule}/now"
-    #spla2 = 'https://spla2.yuu26.com/regular/now'
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
     response = json
 
+    events = client.parse_events_from(body)
+    events.each { |event|
       case event
       when Line::Bot::Event::Message
         case event.type
