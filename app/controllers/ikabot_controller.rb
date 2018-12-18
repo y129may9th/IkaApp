@@ -21,29 +21,29 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    # text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
+    text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    # if text_params == "ナワバリ" then
-    #   rule = "regular"
-    # elsif text_params == "ガチマッチ" then
-    #   rule = "gachi"
-    # elsif text_params == "サーモンラン" then
-    #   rule = "gachi"
-    # end
+    if text_params == "ナワバリ" then
+      rule = "regular"
+    elsif text_params == "ガチマッチ" then
+      rule = "gachi"
+    elsif text_params == "サーモンラン" then
+      rule = "gachi"
+    end
 
-    # spla2 = "https://spla2.yuu26.com/#{rule}/now"
-    # uri = URI.parse(spla2)
-    # res = Net::HTTP.get(uri)
-    # json = JSON.parse(res)
+    spla2 = "https://spla2.yuu26.com/#{rule}/now"
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
 
-    # result = json["result"][0]
-    # rule = result["rule"]
-    # map1 = result["maps"][0]
-    # map2 = result["maps"][1]
-    # image1 = result["maps_ex"][0]["image"]
-    # image2 = result["maps_ex"][1]["image"]
+    result = json["result"][0]
+    rule = result["rule"]
+    map1 = result["maps"][0]
+    map2 = result["maps"][1]
+    image1 = result["maps_ex"][0]["image"]
+    image2 = result["maps_ex"][1]["image"]
 
-    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" +image1 + "\n" + map2 + "\n" + image2 + "\n" 
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" +image1 + "\n" + map2 + "\n" + image2 + "\n" 
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -52,8 +52,8 @@ class IkabotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           message = {
-            #  type: 'text',
-            #  text: response,
+             type: 'text',
+             text: response,
              type: 'image',
              originalContentUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png', 
              previewImageUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png'
