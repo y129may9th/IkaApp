@@ -21,7 +21,7 @@ class IkabotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    spla2 = `https://spla2.yuu26.com/regular/now`
+    spla2 = 'https://spla2.yuu26.com/regular/now'
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
@@ -30,8 +30,8 @@ class IkabotController < ApplicationController
     rule = result["rule"]
     map1 = result["maps"][0]
     map2 = result["maps"][1]
-    image1 = result["map_ex"][0]["image"]
-    image2 = result["map_ex"][1]["image"]
+    image1 = result["maps_ex"][0]["image"]
+    image2 = result["maps_ex"][1]["image"]
 
     response = "【バトル】" + rule + "\n" + "【マップ】" + "\n" + map1 + ":" +image1 + "\n" + map2 + ":" + image2 + "\n" 
 
