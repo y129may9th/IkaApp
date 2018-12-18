@@ -25,7 +25,7 @@ class IkabotController < ApplicationController
 
     if text_params == "ナワバリ" then
       rule = "regular"
-    elsif text_params == "ガチマ" then
+    elsif text_params == "ガチマッチ" then
       rule = "gachi"
     elsif text_params == "サーモンラン" then
       rule = "gachi"
@@ -53,7 +53,9 @@ class IkabotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
              type: 'text',
-             text: response
+             text: response,
+             type: 'image',
+             originalContentUrl: 'https://app.splatoon2.nintendo.net/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png'
            }
            client.reply_message(event['replyToken'], message)
 
