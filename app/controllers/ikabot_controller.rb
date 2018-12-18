@@ -22,23 +22,30 @@ class IkabotController < ApplicationController
     end
 
 
-    text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
+    #text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
     
     events = client.parse_events_from(body)
     events.each { |event|
 
-    if text_params  == "ナワバリ" then
-      rule = "regular"
-      logger.info("@@@@")
-    else text_params  == "ガチマッチ"
-      rule = "gachi"
+    if event.message['text'] == "ナワバリ"
+      spla2 = 'https://spla2.yuu26.com/regular/now'
+      uri = URI.parse(spla2)
+      res = Net::HTTP.get(uri)
+      json = JSON.parse(res)
+      response = json
+    else event.message['text']  == "ガチマッチ"
+      spla2 = 'https://spla2.yuu26.com/gachi/now'
+      uri = URI.parse(spla2)
+      res = Net::HTTP.get(uri)
+      json = JSON.parse(res)
+      response = json
     end
 
-    spla2 = 'https://spla2.yuu26.com/#{rule}/now'
-    uri = URI.parse(spla2)
-    res = Net::HTTP.get(uri)
-    json = JSON.parse(res)
-    response = json
+    # spla2 = 'https://spla2.yuu26.com/regular/now'
+    # uri = URI.parse(spla2)
+    # res = Net::HTTP.get(uri)
+    # json = JSON.parse(res)
+
     # result = json["result"][0]
     # rule_name = result["rule"]
     # map1 = result["maps"][0]
