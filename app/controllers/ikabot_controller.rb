@@ -23,11 +23,11 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    if text_params == "ナワバリ" || "レギュラー" || "レギュラーマッチ" then
+    if text_params == "ナワバリ" then
       rule = "regular"
-    elsif text_params == "ガチマ" || "ガチマッチ" then
+    elsif text_params == "ガチマ" then
       rule = "gachi"
-    elsif text_params == "サーモンラン" || "バイト" then
+    elsif text_params == "サーモンラン" then
       rule = "gachi"
     end
 
@@ -43,10 +43,7 @@ class IkabotController < ApplicationController
     image1 = result["maps_ex"][0]["image"]
     image2 = result["maps_ex"][1]["image"]
 
-    response = "【バトル】" + "\n" + rule + "\n" 
-                + "【マップ】" + "\n" + map1 + "\n" +image1 + "\n" 
-                                       + map2 + "\n" + image2 + "\n" 
-
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" +image1 + "\n" + map2 + "\n" + image2 + "\n" 
 
     events = client.parse_events_from(body)
     events.each { |event|
