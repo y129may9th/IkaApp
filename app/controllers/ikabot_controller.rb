@@ -23,37 +23,37 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    # if text_params == "ナワバリ" then
-    #   rule = "regular/now"
-    #   spla2 = "https://spla2.yuu26.com/#{rule}"
-    # uri = URI.parse(spla2)
-    # res = Net::HTTP.get(uri)
-    # json = JSON.parse(res)
+    if text_params == "ナワバリ" then
+      rule = "regular/now"
+      spla2 = "https://spla2.yuu26.com/#{rule}"
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
 
-    # result = json["result"][0]
-    # rule = result["rule"]
-    # map1 = result["maps"][0]
-    # map2 = result["maps"][1]
-    # map1_image = result["maps_ex"][0]["image"]
-    # map2_image = result["maps_ex"][1]["image"]
-    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    result = json["result"][0]
+    rule = result["rule"]
+    map1 = result["maps"][0]
+    map2 = result["maps"][1]
+    map1_image = result["maps_ex"][0]["image"]
+    map2_image = result["maps_ex"][1]["image"]
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
 
-    # elsif text_params == "ガチマッチ" then
-    #   rule = "gachi/now"
-    #   spla2 = "https://spla2.yuu26.com/#{rule}"
-    # uri = URI.parse(spla2)
-    # res = Net::HTTP.get(uri)
-    # json = JSON.parse(res)
+    elsif text_params == "ガチマッチ" then
+      rule = "gachi/now"
+      spla2 = "https://spla2.yuu26.com/#{rule}"
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
 
-    # result = json["result"][0]
-    # rule = result["rule"]
-    # map1 = result["maps"][0]
-    # map2 = result["maps"][1]
-    # map1_image = result["maps_ex"][0]["image"]
-    # map2_image = result["maps_ex"][1]["image"]
-    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    result = json["result"][0]
+    rule = result["rule"]
+    map1 = result["maps"][0]
+    map2 = result["maps"][1]
+    map1_image = result["maps_ex"][0]["image"]
+    map2_image = result["maps_ex"][1]["image"]
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
 
-    # elsif 
+    elsif 
     text_params == "サーモンラン" 
       rule = "coop"
       spla2 = "https://spla2.yuu26.com/#{rule}"
@@ -76,13 +76,13 @@ class IkabotController < ApplicationController
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
-    # else 
-    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
-    # end
+    else 
+      comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
+    end
 
-    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
-    # response_coop_stage = "【サーモンラン】" + "\n" + stage 
-    # response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    response_coop_stage = "【サーモンラン】" + "\n" + stage 
+    response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -90,45 +90,45 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-        #   if text_params == "ナワバリ"
-        #     messages = [
-        #     {
-        #       type: 'text',
-        #       text: response
-        #     },
-        #     {
-        #       type: 'image',
-        #       originalContentUrl: map1_image,
-        #       previewImageUrl: map1_image
-        #     },
-        #     {
-        #       type: 'image',
-        #       originalContentUrl: map2_image,
-        #       previewImageUrl: map2_image
-        #     }
-        #   ]
-        #     client.reply_message(event['replyToken'], messages)
+          if text_params == "ナワバリ"
+            messages = [
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: map1_image,
+              previewImageUrl: map1_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: map2_image,
+              previewImageUrl: map2_image
+            }
+          ]
+            client.reply_message(event['replyToken'], messages)
             
-        #   elsif text_params == "ガチマッチ"
-        #     messages = [
-        #     {
-        #       type: 'text',
-        #       text: response
-        #     },
-        #     {
-        #       type: 'image',
-        #       originalContentUrl: map1_image,
-        #       previewImageUrl: map1_image
-        #     },
-        #     {
-        #       type: 'image',
-        #       originalContentUrl: map2_image,
-        #       previewImageUrl: map2_image
-        #     }
-        #   ]
-        #     client.reply_message(event['replyToken'], messages)
+          elsif text_params == "ガチマッチ"
+            messages = [
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: map1_image,
+              previewImageUrl: map1_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: map2_image,
+              previewImageUrl: map2_image
+            }
+          ]
+            client.reply_message(event['replyToken'], messages)
               
-        # 　  elsif text_params == "サーモンラン" 
+        　  elsif text_params == "サーモンラン" 
               messages = [
               {
                 type: 'text',
@@ -148,30 +148,30 @@ class IkabotController < ApplicationController
                 originalContentUrl: buki1_image,
                 previewImageUrl: buki1_image
               },
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki2_image,
-              #  previewImageUrl: buki2_image
-              # },
+              {
+                type: 'image',
+                originalContentUrl: buki2_image,
+               previewImageUrl: buki2_image
+               }
               # {
               #   type: 'image',
               #   originalContentUrl: buki3_image,
               #   previewImageUrl: buki3_image
               # },
-              {
-                type: 'image',
-                originalContentUrl: buki4_image,
-                previewImageUrl: buki4_image
-              }
+              # {
+              #   type: 'image',
+              #   originalContentUrl: buki4_image,
+              #   previewImageUrl: buki4_image
+              # }
             ]
               client.reply_message(event['replyToken'], messages)
-            # else
-            #   message = {
-            #            type: 'text',
-            #            text: comment
-            #          }
-            #   client.reply_message(event['replyToken'], messages)
-            # end
+            else
+              message = {
+                       type: 'text',
+                       text: comment
+                     }
+              client.reply_message(event['replyToken'], messages)
+            end
 
         when Line::Bot::Event::MessageType::Sticker
           message = {
