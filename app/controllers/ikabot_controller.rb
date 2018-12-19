@@ -36,7 +36,7 @@ class IkabotController < ApplicationController
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
 
-    # result = json["result"][0]
+     result = json["result"][0]
     # rule = result["rule"]
     # map1 = result["maps"][0]
     # map2 = result["maps"][1]
