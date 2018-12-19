@@ -23,16 +23,6 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    if text_params == "ナワバリ" then
-      rule = "regular/now"
-    elsif text_params == "ガチマッチ" then
-      rule = "gachi/now"
-    elsif text_params == "サーモンラン" then
-      rule = "coop"
-    # else 
-    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
-    end
-
     spla2 = "https://spla2.yuu26.com/#{rule}"
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
@@ -59,6 +49,16 @@ class IkabotController < ApplicationController
     response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
+
+    if text_params == "ナワバリ" then
+      rule = "regular/now"
+    elsif text_params == "ガチマッチ" then
+      rule = "gachi/now"
+    elsif text_params == "サーモンラン" then
+      rule = "coop"
+    # else 
+    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
+    end
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -105,7 +105,7 @@ class IkabotController < ApplicationController
             client.reply_message(event['replyToken'], messages)
               
         　  elsif text_params == "サーモンラン" 
-              messages =[
+              messages = [
               {
                 type: 'text',
                 text: response_coop_stage
