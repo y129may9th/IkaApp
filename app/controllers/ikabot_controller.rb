@@ -53,7 +53,7 @@ class IkabotController < ApplicationController
     buki3_image = result["weapons"][2]["image"]
 
     # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
-    response_coop = "【サーモンラン】" + "\n" + stage + "\n" + "【ブキ】" + "\n" + buki1 + "\n" + buki2　+ "\n" + buki3
+    response_coop = "【サーモンラン】" + "\n" + stage + "\n" + "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3
 
     events = client.parse_events_from(body)
     events.each { |event|
