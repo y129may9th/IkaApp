@@ -28,6 +28,16 @@ class IkabotController < ApplicationController
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
 
+    if text_params == "ナワバリ" then
+      rule = "regular/now"
+    elsif text_params == "ガチマッチ" then
+      rule = "gachi/now"
+    elsif text_params == "サーモンラン" then
+      rule = "coop"
+    # else 
+    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
+    end
+
     result = json["result"][0]
     rule = result["rule"]
     map1 = result["maps"][0]
@@ -50,15 +60,6 @@ class IkabotController < ApplicationController
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
-    if text_params == "ナワバリ" then
-      rule = "regular/now"
-    elsif text_params == "ガチマッチ" then
-      rule = "gachi/now"
-    elsif text_params == "サーモンラン" then
-      rule = "coop"
-    # else 
-    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
-    end
 
     events = client.parse_events_from(body)
     events.each { |event|
