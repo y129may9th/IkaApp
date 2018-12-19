@@ -55,7 +55,12 @@ class IkabotController < ApplicationController
 
     elsif text_params == "サーモンラン" then
       rule = "coop"
-      stage = result["stage"]["name"]
+      spla2 = "https://spla2.yuu26.com/#{rule}"
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
+
+    stage = result["stage"]["name"]
     stage_image = result["stage"]["image"]
     buki1 = result["weapons"][0]["name"]
     buki2 = result["weapons"][1]["name"]
