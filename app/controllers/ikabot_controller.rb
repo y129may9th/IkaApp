@@ -147,17 +147,17 @@ class IkabotController < ApplicationController
                 type: 'image',
                 originalContentUrl: buki1_image,
                 previewImageUrl: buki1_image
-              }
-              {
-                type: 'image',
-                originalContentUrl: buki2_image,
-               previewImageUrl: buki2_image
               },
-              {
-                type: 'image',
-                originalContentUrl: buki3_image,
-                previewImageUrl: buki3_image
-              },
+              # {
+              #   type: 'image',
+              #   originalContentUrl: buki2_image,
+              #  previewImageUrl: buki2_image
+              # },
+              # {
+              #   type: 'image',
+              #   originalContentUrl: buki3_image,
+              #   previewImageUrl: buki3_image
+              # },
               {
                 type: 'image',
                 originalContentUrl: buki4_image,
