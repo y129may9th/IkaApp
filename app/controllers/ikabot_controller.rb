@@ -43,7 +43,7 @@ class IkabotController < ApplicationController
     image1 = result["maps_ex"][0]["image"]
     image2 = result["maps_ex"][1]["image"]
 
-    #response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + "\n" + map2 + "\n" 
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + "\n" + map2 + "\n" 
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -51,110 +51,22 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          messages = {
-            "type": "bubble",
-            "hero": {
-              "type": "image",
-              "url": image1,
-              "size": "full",
-              "aspectRatio": "20:13",
-              "aspectMode": "cover"
+          messages = [
+            {
+              type: 'text',
+              text: response
             },
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "spacing": "md",
-              
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "レギュラーマッチ",
-                  "size": "xl",
-                  "weight": "bold"
-                },
-                 {
-                  "type": "text",
-                  "text": "mm/dd hh:mm-hh:mm",
-                  "wrap": true,
-                  "color": "#aaaaaa",
-                  "size": "xxs"
-                },
-                {
-                  "type": "box",
-                  "layout": "vertical",
-                  "spacing": "sm",
-                  "contents": [
-                    {
-                      "type": "box",
-                      "layout": "horizontal",
-                      "contents": [
-                        {
-                          "type": "image",
-                          "url": image1
-                        },
-                        {
-                          "type": "text",
-                          "text": map1,
-                          "weight": "bold",
-                          "margin": "sm",
-                          "flex": 0,
-                          "gravity": "center"
-                        },
-                        {
-                          "type": "text",
-                          "text": "400kcl",
-                          "size": "sm",
-                          "align": "end",
-                          "color": "#aaaaaa"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "box",
-                      "layout": "horizontal",
-                      "contents": [
-                        {
-                          "type": "image",
-                          "url": image2
-                        },
-                        {
-                          "type": "text",
-                          "text": map2,
-                          "weight": "bold",
-                          "margin": "sm",
-                          "flex": 0,
-                          "gravity": "center"
-                        },
-                        {
-                          "type": "text",
-                          "text": "550kcl",
-                          "size": "sm",
-                          "align": "end",
-                          "color": "#aaaaaa"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
+            {
+              type: 'image',
+              originalContentUrl: image1,
+              previewImageUrl: image1
+            },
+            {
+              type: 'image',
+              originalContentUrl: image2,
+              previewImageUrl: image2
             }
-          }
-          # messages = [
-          #   {
-          #     type: 'text',
-          #     text: response
-          #   },
-          #   {
-          #     type: 'image',
-          #     originalContentUrl: image1,
-          #     previewImageUrl: image1
-          #   },
-          #   {
-          #     type: 'image',
-          #     originalContentUrl: image2,
-          #     previewImageUrl: image2
-          #   }
-          # ]
+          ]
            client.reply_message(event['replyToken'], messages)
 
         when Line::Bot::Event::MessageType::Sticker
