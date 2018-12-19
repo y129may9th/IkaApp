@@ -148,21 +148,21 @@ class IkabotController < ApplicationController
                 originalContentUrl: buki1_image,
                 previewImageUrl: buki1_image
               }
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki2_image,
-              #  previewImageUrl: buki2_image
-              # },
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki3_image,
-              #   previewImageUrl: buki3_image
-              # },
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki4_image,
-              #   previewImageUrl: buki4_image
-              # }
+              {
+                type: 'image',
+                originalContentUrl: buki2_image,
+               previewImageUrl: buki2_image
+              },
+              {
+                type: 'image',
+                originalContentUrl: buki3_image,
+                previewImageUrl: buki3_image
+              },
+              {
+                type: 'image',
+                originalContentUrl: buki4_image,
+                previewImageUrl: buki4_image
+              }
             ]
               client.reply_message(event['replyToken'], messages)
             # else
