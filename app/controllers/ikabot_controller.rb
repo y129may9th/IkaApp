@@ -40,10 +40,20 @@ class IkabotController < ApplicationController
     rule = result["rule"]
     map1 = result["maps"][0]
     map2 = result["maps"][1]
-    image1 = result["maps_ex"][0]["image"]
-    image2 = result["maps_ex"][1]["image"]
+    map1_image = result["maps_ex"][0]["image"]
+    map2_image = result["maps_ex"][1]["image"]
 
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + "\n" + map2 + "\n" 
+    stage = result["stage"]["name"]
+    stage_image = result["stage"]["image"]
+    buki1 = result["weapons"][0]["name"]
+    buki2 = result["weapons"][1]["name"]
+    buki3 = result["weapons"][2]["name"]
+    buki1_image = result["weapons"][0]["image"]
+    buki2_image = result["weapons"][1]["image"]
+    buki3_image = result["weapons"][2]["image"]
+
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    response_coop = "【サーモンラン】" + "\n" + stage + "\n" + "【ブキ】" + "\n" + buki1 + "\n" + buki2　+ "\n" + buki3
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -58,13 +68,37 @@ class IkabotController < ApplicationController
             },
             {
               type: 'image',
-              originalContentUrl: image1,
-              previewImageUrl: image1
+              originalContentUrl: map1_image,
+              previewImageUrl: map1_image
             },
             {
               type: 'image',
-              originalContentUrl: image2,
-              previewImageUrl: image2
+              originalContentUrl: map2_image,
+              previewImageUrl: map2_image
+            },
+            {
+              type: 'text',
+              text: response_coop
+            },
+            {
+              type: 'image',
+              originalContentUrl: stage_image,
+              previewImageUrl: stage_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: buki1_image,
+              previewImageUrl: buki1_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: buki2_image,
+              previewImageUrl: buki2_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: buki3_image,
+              previewImageUrl: buki3_image
             }
           ]
            client.reply_message(event['replyToken'], messages)
