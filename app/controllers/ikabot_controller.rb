@@ -36,12 +36,12 @@ class IkabotController < ApplicationController
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
 
-    result = json["result"][0]
-    rule = result["rule"]
-    map1 = result["maps"][0]
-    map2 = result["maps"][1]
-    map1_image = result["maps_ex"][0]["image"]
-    map2_image = result["maps_ex"][1]["image"]
+    # result = json["result"][0]
+    # rule = result["rule"]
+    # map1 = result["maps"][0]
+    # map2 = result["maps"][1]
+    # map1_image = result["maps_ex"][0]["image"]
+    # map2_image = result["maps_ex"][1]["image"]
 
     stage = result["stage"]["name"]
     stage_image = result["stage"]["image"]
@@ -52,7 +52,7 @@ class IkabotController < ApplicationController
     buki2_image = result["weapons"][1]["image"]
     buki3_image = result["weapons"][2]["image"]
 
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     response_coop = "【サーモンラン】" + "\n" + stage + "\n" + "【ブキ】" + "\n" + buki1 + "\n" + buki2　+ "\n" + buki3
 
     events = client.parse_events_from(body)
@@ -62,20 +62,20 @@ class IkabotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           messages = [
-            {
-              type: 'text',
-              text: response
-            },
-            {
-              type: 'image',
-              originalContentUrl: map1_image,
-              previewImageUrl: map1_image
-            },
-            {
-              type: 'image',
-              originalContentUrl: map2_image,
-              previewImageUrl: map2_image
-            },
+            # {
+            #   type: 'text',
+            #   text: response
+            # },
+            # {
+            #   type: 'image',
+            #   originalContentUrl: map1_image,
+            #   previewImageUrl: map1_image
+            # },
+            # {
+            #   type: 'image',
+            #   originalContentUrl: map2_image,
+            #   previewImageUrl: map2_image
+            # },
             {
               type: 'text',
               text: response_coop
