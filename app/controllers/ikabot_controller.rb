@@ -31,17 +31,18 @@ class IkabotController < ApplicationController
       rule = "coop"
     end
 
+    def get_record
     spla2 = "https://spla2.yuu26.com/#{rule}"
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
 
-     result = json["result"][0]
-    # rule = result["rule"]
-    # map1 = result["maps"][0]
-    # map2 = result["maps"][1]
-    # map1_image = result["maps_ex"][0]["image"]
-    # map2_image = result["maps_ex"][1]["image"]
+    result = json["result"][0]
+    rule = result["rule"]
+    map1 = result["maps"][0]
+    map2 = result["maps"][1]
+    map1_image = result["maps_ex"][0]["image"]
+    map2_image = result["maps_ex"][1]["image"]
 
     stage = result["stage"]["name"]
     stage_image = result["stage"]["image"]
@@ -54,9 +55,13 @@ class IkabotController < ApplicationController
     buki3_image = result["weapons"][2]["image"]
     buki4_image = result["weapons"][3]["image"]
 
-    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
+
+    records = {response: response, response_coop_stage: response_coop_stage, response_coop_buki: response_coop_buki}
+    return records
+    end
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -64,21 +69,45 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
+          if text_params == "ナワバリ" then
+            rule = "regular/now"
           messages = [
-            # {
-            #   type: 'text',
-            #   text: response
-            # },
-            # {
-            #   type: 'image',
-            #   originalContentUrl: map1_image,
-            #   previewImageUrl: map1_image
-            # },
-            # {
-            #   type: 'image',
-            #   originalContentUrl: map2_image,
-            #   previewImageUrl: map2_image
-            # },
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: map1_image,
+              previewImageUrl: map1_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: map2_image,
+              previewImageUrl: map2_image
+            }
+          ]
+          elsif text_params == "ガチバトル" then
+            rule = "gachi/now"
+          messages = [
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: map1_image,
+              previewImageUrl: map1_image
+            },
+            {
+             type: 'image',
+             originalContentUrl: map2_image,
+              previewImageUrl: map2_image
+            }
+          ]
+        　elsif text_params == "サーモンラン" then
+            rule = "coop"
+            messages =[
             {
               type: 'text',
               text: response_coop_stage
@@ -97,21 +126,21 @@ class IkabotController < ApplicationController
               originalContentUrl: buki1_image,
               previewImageUrl: buki1_image
             }
-            # {
-            #   type: 'image',
-            #   originalContentUrl: buki2_image,
-            #   previewImageUrl: buki2_image
-            # },
-            # {
-            #   type: 'image',
-            #   originalContentUrl: buki3_image,
-            #   previewImageUrl: buki3_image
-            # },
-            # {
-            #   type: 'image',
-            #   originalContentUrl: buki4_image,
-            #   previewImageUrl: buki4_image
-            # }
+            {
+              type: 'image',
+              originalContentUrl: buki2_image,
+              previewImageUrl: buki2_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: buki3_image,
+              previewImageUrl: buki3_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: buki4_image,
+              previewImageUrl: buki4_image
+            }
           ]
            client.reply_message(event['replyToken'], messages)
 
