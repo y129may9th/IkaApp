@@ -23,11 +23,6 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    spla2 = "https://spla2.yuu26.com/#{rule}"
-    uri = URI.parse(spla2)
-    res = Net::HTTP.get(uri)
-    json = JSON.parse(res)
-
     if text_params == "ナワバリ" then
       rule = "regular/now"
     elsif text_params == "ガチマッチ" then
@@ -38,12 +33,18 @@ class IkabotController < ApplicationController
     #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
     end
 
+    spla2 = "https://spla2.yuu26.com/#{rule}"
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
+
     result = json["result"][0]
     rule = result["rule"]
     map1 = result["maps"][0]
     map2 = result["maps"][1]
     map1_image = result["maps_ex"][0]["image"]
     map2_image = result["maps_ex"][1]["image"]
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
 
     stage = result["stage"]["name"]
     stage_image = result["stage"]["image"]
@@ -56,10 +57,8 @@ class IkabotController < ApplicationController
     buki3_image = result["weapons"][2]["image"]
     buki4_image = result["weapons"][3]["image"]
 
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
-
 
     events = client.parse_events_from(body)
     events.each { |event|
