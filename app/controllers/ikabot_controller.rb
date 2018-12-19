@@ -79,8 +79,7 @@ class IkabotController < ApplicationController
             #   originalContentUrl: map2_image,
             #   previewImageUrl: map2_image
             # },
-            [
-              {
+            {
               type: 'text',
               text: response_coop_stage
             },
@@ -89,8 +88,6 @@ class IkabotController < ApplicationController
               originalContentUrl: stage_image,
               previewImageUrl: stage_image
             },
-          ],
-          [
             {
               type: 'text',
               text: response_coop_buki
@@ -99,23 +96,22 @@ class IkabotController < ApplicationController
               type: 'image',
               originalContentUrl: buki1_image,
               previewImageUrl: buki1_image
-            },
-            {
-              type: 'image',
-              originalContentUrl: buki2_image,
-              previewImageUrl: buki2_image
-            },
-            {
-              type: 'image',
-              originalContentUrl: buki3_image,
-              previewImageUrl: buki3_image
-            },
-            {
-              type: 'image',
-              originalContentUrl: buki4_image,
-              previewImageUrl: buki4_image
             }
-          ]
+            # {
+            #   type: 'image',
+            #   originalContentUrl: buki2_image,
+            #   previewImageUrl: buki2_image
+            # },
+            # {
+            #   type: 'image',
+            #   originalContentUrl: buki3_image,
+            #   previewImageUrl: buki3_image
+            # },
+            # {
+            #   type: 'image',
+            #   originalContentUrl: buki4_image,
+            #   previewImageUrl: buki4_image
+            # }
           ]
            client.reply_message(event['replyToken'], messages)
 
