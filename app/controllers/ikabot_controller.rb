@@ -62,6 +62,7 @@ class IkabotController < ApplicationController
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
 
+    result = json["result"][0]
     stage = result["stage"]["name"]
     stage_image = result["stage"]["image"]
     buki1 = result["weapons"][0]["name"]
