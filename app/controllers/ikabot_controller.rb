@@ -79,7 +79,8 @@ class IkabotController < ApplicationController
             #   originalContentUrl: map2_image,
             #   previewImageUrl: map2_image
             # },
-            {
+            [
+              {
               type: 'text',
               text: response_coop_stage
             },
@@ -88,6 +89,8 @@ class IkabotController < ApplicationController
               originalContentUrl: stage_image,
               previewImageUrl: stage_image
             },
+          ],
+          [
             {
               type: 'text',
               text: response_coop_buki
@@ -112,6 +115,7 @@ class IkabotController < ApplicationController
               originalContentUrl: buki4_image,
               previewImageUrl: buki4_image
             }
+          ]
           ]
            client.reply_message(event['replyToken'], messages)
 
