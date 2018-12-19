@@ -55,23 +55,16 @@ class IkabotController < ApplicationController
             "type": "bubble",
             "hero": {
               "type": "image",
-              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_2_restaurant.png",
+              "url": image1,
               "size": "full",
               "aspectRatio": "20:13",
-              "aspectMode": "cover",
-              "action": {
-                "type": "uri",
-                "uri": "https://linecorp.com"
-              }
+              "aspectMode": "cover"
             },
             "body": {
               "type": "box",
               "layout": "vertical",
               "spacing": "md",
-              "action": {
-                "type": "uri",
-                "uri": "https://linecorp.com"
-              },
+              
               "contents": [
                 {
                   "type": "text",
