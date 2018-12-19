@@ -43,16 +43,16 @@ class IkabotController < ApplicationController
     map1_image = result["maps_ex"][0]["image"]
     map2_image = result["maps_ex"][1]["image"]
 
-    stage = result["stage"]["name"]
-    stage_image = result["stage"]["image"]
-    buki1 = result["weapons"][0]["name"]
-    buki2 = result["weapons"][1]["name"]
-    buki3 = result["weapons"][2]["name"]
-    buki4 = result["weapons"][3]["name"]
-    buki1_image = result["weapons"][0]["image"]
-    buki2_image = result["weapons"][1]["image"]
-    buki3_image = result["weapons"][2]["image"]
-    buki4_image = result["weapons"][3]["image"]
+    # stage = result["stage"]["name"]
+    # stage_image = result["stage"]["image"]
+    # buki1 = result["weapons"][0]["name"]
+    # buki2 = result["weapons"][1]["name"]
+    # buki3 = result["weapons"][2]["name"]
+    # buki4 = result["weapons"][3]["name"]
+    # buki1_image = result["weapons"][0]["image"]
+    # buki2_image = result["weapons"][1]["image"]
+    # buki3_image = result["weapons"][2]["image"]
+    # buki4_image = result["weapons"][3]["image"]
 
     response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
@@ -83,43 +83,43 @@ class IkabotController < ApplicationController
           ]
             client.reply_message(event['replyToken'], messages)
             
-        　  elsif text_params == "サーモンラン" 
-              messages =[
-              {
-                type: 'text',
-                text: response_coop_stage
-              },
-              {
-                type: 'image',
-                originalContentUrl: stage_image,
-                previewImageUrl: stage_image
-              },
-              {
-                type: 'text',
-                text: response_coop_buki
-              },
-              {
-                type: 'image',
-                originalContentUrl: buki1_image,
-                previewImageUrl: buki1_image
-              }
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki2_image,
-              #  previewImageUrl: buki2_image
-              # },
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki3_image,
-              #   previewImageUrl: buki3_image
-              # },
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki4_image,
-              #   previewImageUrl: buki4_image
-              # }
-            ]
-              client.reply_message(event['replyToken'], messages)
+        # 　  elsif text_params == "サーモンラン" 
+        #       messages =[
+        #       {
+        #         type: 'text',
+        #         text: response_coop_stage
+        #       },
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: stage_image,
+        #         previewImageUrl: stage_image
+        #       },
+        #       {
+        #         type: 'text',
+        #         text: response_coop_buki
+        #       },
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: buki1_image,
+        #         previewImageUrl: buki1_image
+        #       }
+        #       # {
+        #       #   type: 'image',
+        #       #   originalContentUrl: buki2_image,
+        #       #  previewImageUrl: buki2_image
+        #       # },
+        #       # {
+        #       #   type: 'image',
+        #       #   originalContentUrl: buki3_image,
+        #       #   previewImageUrl: buki3_image
+        #       # },
+        #       # {
+        #       #   type: 'image',
+        #       #   originalContentUrl: buki4_image,
+        #       #   previewImageUrl: buki4_image
+        #       # }
+        #     ]
+        #       client.reply_message(event['replyToken'], messages)
             else
               message = {
                        type: 'text',
