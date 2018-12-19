@@ -72,9 +72,7 @@ class IkabotController < ApplicationController
     buki1_image = result["weapons"][0]["image"]
     buki2_image = result["weapons"][1]["image"]
     buki3_image = result["weapons"][2]["image"]
-    buki4_image = result["weapons"][3]["image"]
-    response_coop_stage = "【サーモンラン】" + "\n" + stage 
-    response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
+    response_coop = "【サーモンラン】" + "\n" + stage + "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4 
 
     else 
       comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
@@ -132,16 +130,12 @@ class IkabotController < ApplicationController
               messages = [
               {
                 type: 'text',
-                text: response_coop_stage
+                text: response_coop
               },
               {
                 type: 'image',
                 originalContentUrl: stage_image,
                 previewImageUrl: stage_image
-              },
-              {
-                type: 'text',
-                text: response_coop_buki
               },
               {
                 type: 'image',
@@ -153,16 +147,11 @@ class IkabotController < ApplicationController
                 originalContentUrl: buki2_image,
                previewImageUrl: buki2_image
                }
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki3_image,
-              #   previewImageUrl: buki3_image
-              # },
-              # {
-              #   type: 'image',
-              #   originalContentUrl: buki4_image,
-              #   previewImageUrl: buki4_image
-              # }
+              {
+                type: 'image',
+                originalContentUrl: buki3_image,
+                previewImageUrl: buki3_image
+              }
             ]
               client.reply_message(event['replyToken'], messages)
             else
