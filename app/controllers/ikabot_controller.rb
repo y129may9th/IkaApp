@@ -83,7 +83,7 @@ class IkabotController < ApplicationController
           ]
             client.reply_message(event['replyToken'], messages)
             
-          elsif text_params == "ガチ"
+          elsif text_params == "ガチマッチ"
             messages = [
             {
               type: 'text',
