@@ -23,13 +23,13 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    # if text_params == "ナワバリ" then
-    #   rule = "regular"
-    # elsif text_params == "ガチマッチ" then
-    #   rule = "gachi"
-    # elsif text_params == "サーモンラン" then
-    #   rule = "gachi"
-    # end
+    if text_params == "ナワバリ" then
+      rule = "regular/now"
+    elsif text_params == "ガチマッチ" then
+      rule = "gachi/now"
+    elsif text_params == "サーモンラン" then
+      rule = "coop"
+    end
 
     spla2 = "https://spla2.yuu26.com/#{rule}"
     uri = URI.parse(spla2)
@@ -51,48 +51,23 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          if text_params == "ナワバリ" || text_params == "レギュラーマッチ"
-            rule = "regular"
-            #rule = "#{rule_name}/now"
-            messages = [
-              {
-                type: 'text',
-                text: response
-              },
-              {
-                type: 'image',
-                originalContentUrl: image1,
-                previewImageUrl: image1
-              },
-              {
-                type: 'image',
-                originalContentUrl: image2,
-                previewImageUrl: image2
-              }
-            ]
-            client.reply_message(event['replyToken'], messages)
-
-          elsif text_params == "ガチマッチ" || text_params == "ガチ"
-            rule = "gachi"
-            #rule = "#{rule_name}/now"
-            messages = [
-              {
-                type: 'text',
-                text: response
-              },
-              {
-                type: 'image',
-                originalContentUrl: image1,
-                previewImageUrl: image1
-              },
-              {
-                type: 'image',
-                originalContentUrl: image2,
-                previewImageUrl: image2
-              }
-            ]
-            client.reply_message(event['replyToken'], messages)
-          end
+          messages = [
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: image1,
+              previewImageUrl: image1
+            },
+            {
+              type: 'image',
+              originalContentUrl: image2,
+              previewImageUrl: image2
+            }
+          ]
+           client.reply_message(event['replyToken'], messages)
 
         when Line::Bot::Event::MessageType::Sticker
           message = {
