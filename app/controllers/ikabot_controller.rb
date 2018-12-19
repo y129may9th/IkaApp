@@ -43,30 +43,125 @@ class IkabotController < ApplicationController
     image1 = result["maps_ex"][0]["image"]
     image2 = result["maps_ex"][1]["image"]
 
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" +image1 + "\n" + map2 + "\n" + image2 + "\n" 
+    #response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + "\n" + map2 + "\n" 
 
     events = client.parse_events_from(body)
     events.each { |event|
       case event
       when Line::Bot::Event::Message
         case event.type
-        when Line::Bot::Event::MessageType::Text
-          messages = [
-            {
-              type: 'text',
-              text: response
+        when Line::Bot::Event::MessageType::
+          message = {
+            "type": "bubble",
+            "hero": {
+              "type": "image",
+              "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_2_restaurant.png",
+              "size": "full",
+              "aspectRatio": "20:13",
+              "aspectMode": "cover",
+              "action": {
+                "type": "uri",
+                "uri": "https://linecorp.com"
+              }
             },
-            {
-              type: 'image',
-              originalContentUrl: image1,
-              previewImageUrl: image1
-            },
-            {
-              type: 'image',
-              originalContentUrl: image2,
-              previewImageUrl: image2
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "spacing": "md",
+              "action": {
+                "type": "uri",
+                "uri": "https://linecorp.com"
+              },
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "レギュラーマッチ",
+                  "size": "xl",
+                  "weight": "bold"
+                },
+                 {
+                  "type": "text",
+                  "text": "mm/dd hh:mm-hh:mm",
+                  "wrap": true,
+                  "color": "#aaaaaa",
+                  "size": "xxs"
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "image",
+                          "url": image1
+                        },
+                        {
+                          "type": "text",
+                          "text": map1,
+                          "weight": "bold",
+                          "margin": "sm",
+                          "flex": 0,
+                          "gravity": "center"
+                        },
+                        {
+                          "type": "text",
+                          "text": "400kcl",
+                          "size": "sm",
+                          "align": "end",
+                          "color": "#aaaaaa"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "box",
+                      "layout": "horizontal",
+                      "contents": [
+                        {
+                          "type": "image",
+                          "url": image2
+                        },
+                        {
+                          "type": "text",
+                          "text": map2,
+                          "weight": "bold",
+                          "margin": "sm",
+                          "flex": 0,
+                          "gravity": "center"
+                        },
+                        {
+                          "type": "text",
+                          "text": "550kcl",
+                          "size": "sm",
+                          "align": "end",
+                          "color": "#aaaaaa"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
-          ]
+          }
+          # messages = [
+          #   {
+          #     type: 'text',
+          #     text: response
+          #   },
+          #   {
+          #     type: 'image',
+          #     originalContentUrl: image1,
+          #     previewImageUrl: image1
+          #   },
+          #   {
+          #     type: 'image',
+          #     originalContentUrl: image2,
+          #     previewImageUrl: image2
+          #   }
+          # ]
            client.reply_message(event['replyToken'], messages)
 
         when Line::Bot::Event::MessageType::Sticker
