@@ -36,6 +36,7 @@ class IkabotController < ApplicationController
     map2 = result["maps"][1]
     map1_image = result["maps_ex"][0]["image"]
     map2_image = result["maps_ex"][1]["image"]
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
 
     elsif text_params == "ガチマッチ" then
       rule = "gachi/now"
@@ -50,6 +51,7 @@ class IkabotController < ApplicationController
     map2 = result["maps"][1]
     map1_image = result["maps_ex"][0]["image"]
     map2_image = result["maps_ex"][1]["image"]
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
 
     elsif text_params == "サーモンラン" then
       rule = "coop"
@@ -63,14 +65,16 @@ class IkabotController < ApplicationController
     buki2_image = result["weapons"][1]["image"]
     buki3_image = result["weapons"][2]["image"]
     buki4_image = result["weapons"][3]["image"]
+    response_coop_stage = "【サーモンラン】" + "\n" + stage 
+    response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
     # else 
     #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
     end
 
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
-    response_coop_stage = "【サーモンラン】" + "\n" + stage 
-    response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
+    # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
+    # response_coop_stage = "【サーモンラン】" + "\n" + stage 
+    # response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
     events = client.parse_events_from(body)
     events.each { |event|
