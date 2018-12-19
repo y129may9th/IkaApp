@@ -48,12 +48,15 @@ class IkabotController < ApplicationController
     buki1 = result["weapons"][0]["name"]
     buki2 = result["weapons"][1]["name"]
     buki3 = result["weapons"][2]["name"]
+    buki4 = result["weapons"][3]["name"]
     buki1_image = result["weapons"][0]["image"]
     buki2_image = result["weapons"][1]["image"]
     buki3_image = result["weapons"][2]["image"]
+    buki4_image = result["weapons"][3]["image"]
 
     # response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
-    response_coop = "【サーモンラン】" + "\n" + stage + "\n" + "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3
+    response_coop_stage = "【サーモンラン】" + "\n" + stage 
+    response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -78,12 +81,16 @@ class IkabotController < ApplicationController
             # },
             {
               type: 'text',
-              text: response_coop
+              text: response_coop_stage
             },
             {
               type: 'image',
               originalContentUrl: stage_image,
               previewImageUrl: stage_image
+            },
+            {
+              type: 'text',
+              text: response_coop_buki
             },
             {
               type: 'image',
@@ -99,6 +106,11 @@ class IkabotController < ApplicationController
               type: 'image',
               originalContentUrl: buki3_image,
               previewImageUrl: buki3_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: buki4_image,
+              previewImageUrl: buki4_image
             }
           ]
            client.reply_message(event['replyToken'], messages)
