@@ -104,52 +104,51 @@ class IkabotController < ApplicationController
             ]
               client.reply_message(event['replyToken'], messages)
 
-        　  elsif text_params == "サーモンラン" 
-              rule = "coop"
-              messages =[
-              {
-                type: 'text',
-                text: response_coop_stage
-              },
-              {
-                type: 'image',
-                originalContentUrl: stage_image,
-                previewImageUrl: stage_image
-              },
-              {
-                type: 'text',
-                text: response_coop_buki
-              },
-              {
-                type: 'image',
-                originalContentUrl: buki1_image,
-                previewImageUrl: buki1_image
-              }
-              {
-                type: 'image',
-                originalContentUrl: buki2_image,
-               previewImageUrl: buki2_image
-              },
-              {
-                type: 'image',
-                originalContentUrl: buki3_image,
-                previewImageUrl: buki3_image
-              },
-              {
-                type: 'image',
-                originalContentUrl: buki4_image,
-                previewImageUrl: buki4_image
-              }
-            ]
-              client.reply_message(event['replyToken'], messages)
+        # 　  elsif text_params == "サーモンラン" 
+        #       rule = "coop"
+        #       messages =[
+        #       {
+        #         type: 'text',
+        #         text: response_coop_stage
+        #       },
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: stage_image,
+        #         previewImageUrl: stage_image
+        #       },
+        #       {
+        #         type: 'text',
+        #         text: response_coop_buki
+        #       },
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: buki1_image,
+        #         previewImageUrl: buki1_image
+        #       }
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: buki2_image,
+        #        previewImageUrl: buki2_image
+        #       },
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: buki3_image,
+        #         previewImageUrl: buki3_image
+        #       },
+        #       {
+        #         type: 'image',
+        #         originalContentUrl: buki4_image,
+        #         previewImageUrl: buki4_image
+        #       }
+        #     ]
+        #       client.reply_message(event['replyToken'], messages)
             else
               message = {
                        type: 'text',
                        text: "「レギュラーマッチ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
                      }
               client.reply_message(event['replyToken'], messages)
-
-        end
+            end
 
         when Line::Bot::Event::MessageType::Sticker
           message = {
