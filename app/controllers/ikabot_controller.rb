@@ -25,15 +25,7 @@ class IkabotController < ApplicationController
 
     if text_params == "ナワバリ" then
       rule = "regular/now"
-    elsif text_params == "ガチマッチ" then
-      rule = "gachi/now"
-    elsif text_params == "サーモンラン" then
-      rule = "coop"
-    # else 
-    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
-    end
-
-    spla2 = "https://spla2.yuu26.com/#{rule}"
+      spla2 = "https://spla2.yuu26.com/#{rule}"
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
     json = JSON.parse(res)
@@ -44,9 +36,24 @@ class IkabotController < ApplicationController
     map2 = result["maps"][1]
     map1_image = result["maps_ex"][0]["image"]
     map2_image = result["maps_ex"][1]["image"]
-    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
 
-    stage = result["stage"]["name"]
+    elsif text_params == "ガチマッチ" then
+      rule = "gachi/now"
+      spla2 = "https://spla2.yuu26.com/#{rule}"
+    uri = URI.parse(spla2)
+    res = Net::HTTP.get(uri)
+    json = JSON.parse(res)
+
+    result = json["result"][0]
+    rule = result["rule"]
+    map1 = result["maps"][0]
+    map2 = result["maps"][1]
+    map1_image = result["maps_ex"][0]["image"]
+    map2_image = result["maps_ex"][1]["image"]
+
+    elsif text_params == "サーモンラン" then
+      rule = "coop"
+      stage = result["stage"]["name"]
     stage_image = result["stage"]["image"]
     buki1 = result["weapons"][0]["name"]
     buki2 = result["weapons"][1]["name"]
@@ -57,6 +64,11 @@ class IkabotController < ApplicationController
     buki3_image = result["weapons"][2]["image"]
     buki4_image = result["weapons"][3]["image"]
 
+    # else 
+    #   comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
+    end
+
+    response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
