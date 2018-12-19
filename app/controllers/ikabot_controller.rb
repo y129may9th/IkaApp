@@ -23,15 +23,14 @@ class IkabotController < ApplicationController
 
     text_params = params["events"][0]["message"]["text"] #メッセージイベントからテキストの取得
 
-    if text_params == "ナワバリ" then
-      rule = "regular/now"
-    elsif text_params == "ガチマッチ" then
-      rule = "gachi/now"
-    elsif text_params == "サーモンラン" then
-      rule = "coop"
-    end
+    # if text_params == "ナワバリ" then
+    #   rule = "regular/now"
+    # elsif text_params == "ガチマッチ" then
+    #   rule = "gachi/now"
+    # elsif text_params == "サーモンラン" then
+    #   rule = "coop"
+    # end
 
-    def get_record
     spla2 = "https://spla2.yuu26.com/#{rule}"
     uri = URI.parse(spla2)
     res = Net::HTTP.get(uri)
@@ -59,19 +58,15 @@ class IkabotController < ApplicationController
     response_coop_stage = "【サーモンラン】" + "\n" + stage 
     response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
-    records = {response: response, response_coop_stage: response_coop_stage, response_coop_buki: response_coop_buki}
-    return records
-    end
-
     events = client.parse_events_from(body)
     events.each { |event|
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          if text_params == "ナワバリ" then
+          if text_params == "ナワバリ"
             rule = "regular/now"
-          messages = [
+            messages = [
             {
               type: 'text',
               text: response
@@ -87,68 +82,75 @@ class IkabotController < ApplicationController
               previewImageUrl: map2_image
             }
           ]
-          client.reply_message(event['replyToken'], messages)
+            client.reply_message(event['replyToken'], messages)
 
-          elsif text_params == "ガチバトル" then
+          elsif text_params == "ガチバトル"
             rule = "gachi/now"
-          messages = [
-            {
-              type: 'text',
-              text: response
-            },
-            {
-              type: 'image',
-              originalContentUrl: map1_image,
-              previewImageUrl: map1_image
-            },
-            {
-             type: 'image',
-             originalContentUrl: map2_image,
-              previewImageUrl: map2_image
-            }
-          ]
-          client.reply_message(event['replyToken'], messages)
+            messages = [
+              {
+                type: 'text',
+                text: response
+              },
+              {
+                type: 'image',
+                originalContentUrl: map1_image,
+                previewImageUrl: map1_image
+              },
+              {
+                type: 'image',
+                originalContentUrl: map2_image,
+                previewImageUrl: map2_image
+              }
+            ]
+              client.reply_message(event['replyToken'], messages)
 
-        　elsif text_params == "サーモンラン" then
-            rule = "coop"
-            messages =[
-            {
-              type: 'text',
-              text: response_coop_stage
-            },
-            {
-              type: 'image',
-              originalContentUrl: stage_image,
-              previewImageUrl: stage_image
-            },
-            {
-              type: 'text',
-              text: response_coop_buki
-            },
-            {
-              type: 'image',
-              originalContentUrl: buki1_image,
-              previewImageUrl: buki1_image
-            }
-            {
-              type: 'image',
-              originalContentUrl: buki2_image,
-              previewImageUrl: buki2_image
-            },
-            {
-              type: 'image',
-              originalContentUrl: buki3_image,
-              previewImageUrl: buki3_image
-            },
-            {
-              type: 'image',
-              originalContentUrl: buki4_image,
-              previewImageUrl: buki4_image
-            }
-          ]
-           client.reply_message(event['replyToken'], messages)
+        　  elsif text_params == "サーモンラン" 
+              rule = "coop"
+              messages =[
+              {
+                type: 'text',
+                text: response_coop_stage
+              },
+              {
+                type: 'image',
+                originalContentUrl: stage_image,
+                previewImageUrl: stage_image
+              },
+              {
+                type: 'text',
+                text: response_coop_buki
+              },
+              {
+                type: 'image',
+                originalContentUrl: buki1_image,
+                previewImageUrl: buki1_image
+              }
+              {
+                type: 'image',
+                originalContentUrl: buki2_image,
+               previewImageUrl: buki2_image
+              },
+              {
+                type: 'image',
+                originalContentUrl: buki3_image,
+                previewImageUrl: buki3_image
+              },
+              {
+                type: 'image',
+                originalContentUrl: buki4_image,
+                previewImageUrl: buki4_image
+              }
+            ]
+              client.reply_message(event['replyToken'], messages)
+            else
+              message = {
+                       type: 'text',
+                       text: "「レギュラーマッチ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
+                     }
+              client.reply_message(event['replyToken'], messages)
+
         end
-        
+
         when Line::Bot::Event::MessageType::Sticker
           message = {
             type: 'sticker',
