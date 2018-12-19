@@ -87,6 +87,8 @@ class IkabotController < ApplicationController
               previewImageUrl: map2_image
             }
           ]
+          client.reply_message(event['replyToken'], messages)
+
           elsif text_params == "ガチバトル" then
             rule = "gachi/now"
           messages = [
@@ -105,6 +107,8 @@ class IkabotController < ApplicationController
               previewImageUrl: map2_image
             }
           ]
+          client.reply_message(event['replyToken'], messages)
+
         　elsif text_params == "サーモンラン" then
             rule = "coop"
             messages =[
@@ -143,7 +147,8 @@ class IkabotController < ApplicationController
             }
           ]
            client.reply_message(event['replyToken'], messages)
-
+        end
+        
         when Line::Bot::Event::MessageType::Sticker
           message = {
             type: 'sticker',
