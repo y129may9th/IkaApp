@@ -51,7 +51,7 @@ class IkabotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::
-          message = {
+          messages = {
             "type": "bubble",
             "hero": {
               "type": "image",
