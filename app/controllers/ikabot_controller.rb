@@ -52,8 +52,8 @@ class IkabotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           if text_params == "ナワバリ" || text_params == "レギュラーマッチ"
-            rule_name = "regular"
-            rule = "#{rule_name}/now"
+            rule = "regular"
+            #rule = "#{rule_name}/now"
             messages = [
               {
                 type: 'text',
@@ -73,8 +73,8 @@ class IkabotController < ApplicationController
             client.reply_message(event['replyToken'], messages)
 
           elsif text_params == "ガチマッチ" || text_params == "ガチ"
-            rule_name = "gachi"
-            rule = "#{rule_name}/now"
+            rule = "gachi"
+            #rule = "#{rule_name}/now"
             messages = [
               {
                 type: 'text',
