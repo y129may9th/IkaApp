@@ -29,6 +29,8 @@ class IkabotController < ApplicationController
       rule = "gachi/now"
     elsif text_params == "サーモンラン" then
       rule = "coop"
+    else 
+      comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
     end
 
     spla2 = "https://spla2.yuu26.com/#{rule}"
@@ -142,7 +144,7 @@ class IkabotController < ApplicationController
             else
               message = {
                        type: 'text',
-                       text: "「レギュラーマッチ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
+                       text: comment
                      }
               client.reply_message(event['replyToken'], messages)
             end
