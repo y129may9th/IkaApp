@@ -72,7 +72,7 @@ class IkabotController < ApplicationController
     buki1_image = result["weapons"][0]["image"]
     buki2_image = result["weapons"][1]["image"]
     buki3_image = result["weapons"][2]["image"]
-    response_coop = "【サーモンラン】" + "\n" + stage + "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4 
+    response_coop = "【サーモンラン】" + "\n" + stage + "\n" + "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4 
 
     else 
       comment = "「ナワバリ」\n「ガチマッチ」\n「サーモンラン」\n のいずれかの単語を送信してください"
