@@ -56,7 +56,7 @@ class IkabotController < ApplicationController
 
     response = "【バトル】" + "\n" + rule + "\n" + "【マップ】" + "\n" + map1 + "\n" + map2 
     # response_coop_stage = "【サーモンラン】" + "\n" + stage 
-    #response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
+    # response_coop_buki = "【ブキ】" + "\n" + buki1 + "\n" + buki2 + "\n" + buki3 + "\n" + buki4
 
     events = client.parse_events_from(body)
     events.each { |event|
@@ -83,6 +83,25 @@ class IkabotController < ApplicationController
           ]
             client.reply_message(event['replyToken'], messages)
             
+          else text_params == "ガチ"
+            messages = [
+            {
+              type: 'text',
+              text: response
+            },
+            {
+              type: 'image',
+              originalContentUrl: map1_image,
+              previewImageUrl: map1_image
+            },
+            {
+              type: 'image',
+              originalContentUrl: map2_image,
+              previewImageUrl: map2_image
+            }
+          ]
+            client.reply_message(event['replyToken'], messages)
+              
         # 　  elsif text_params == "サーモンラン" 
         #       messages =[
         #       {
