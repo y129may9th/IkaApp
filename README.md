@@ -1,24 +1,27 @@
-# README
+# スプラトゥーンステージ情報ボット
+---
+スプラトゥーンのステージが２時間おきに変わるので、現在のステージ情報を知るために作成。
+サーモンランはステージ、ブキ共に変動するので、同様に作成。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 機能
+---
+### ガチマッチ
+・ルール
+・現在のステージ情報
+・ステージの画像
 
-Things you may want to cover:
+### ナワバリ
+・ルール
+・現在のステージ情報
+・ステージの画像
 
-* Ruby version
+### サーモンラン
+・ステージ情報
+・ブキ情報
+・ステージ画像
+・ブキ画像
 
-* System dependencies
+[QRcode](https://imgur.com/a/GVfU4Hd)
 
-* Configuration
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
